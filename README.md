@@ -1,16 +1,5 @@
 # el-menu-demo
 
-## Project setup
-```
-yarn install
-```
+## demo
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
-
-### Compiles and minifies for production
-```
-yarn run build
-```
+[demo](https://mrcxt.github.io/el-menu-demo/dist/index.html#/)
