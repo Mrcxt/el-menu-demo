@@ -55,6 +55,6 @@ export default new Router({
                     },
                 }]
             }, ]
-        }
+        },
     ]
 })

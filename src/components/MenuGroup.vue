@@ -16,7 +16,7 @@ export default {
   data() {
     return {};
   },
-  //props为 demo演示所用，开发时可删除
+  //props为 demo 演示所用，开发时可删除
   props: {
     settings: {
       type: Object,
