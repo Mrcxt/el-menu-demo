@@ -8,7 +8,7 @@
 
 > 以下代码可以直接复制使用，无序修改！
 >
-> 需要在 `router.js` 中增加 `meta:{visibale:true}`字段，用来控制是否要将该路径显示在菜单上。如果不需要，可将组价中的 `v-if`去除。
+> 如需要隐藏菜单，可在 `router.js` 中增加 `visibale:false`字段，用来控制隐藏。 默认不添加字段或者为 true ，为显示菜单。
 
 **封装组件**
 
@@ -20,8 +20,9 @@
     <template slot="title">
       {{data.name}}
     </template>
-    <template v-for="item in data.children">
-      <template v-if="item.meta.visible">
+
+    <template v-for="(item, index) in data.children">
+      <template v-if="!('visible' in item) || item.visible">
         <el-menu-item v-if="!item.children" :key="item.key" :index="`${path}/${item.path}`">{{item.name}}</el-menu-item>
         <sub-menu v-else :data="item" :path="`${path}/${item.path}`" :key="item.key"></sub-menu>
       </template>
@@ -53,7 +54,7 @@ export default {
 <template>
   <el-menu :mode="settings.mode" :default-active="fullPath" router>
     <template v-for="(item, index) in routerList">
-      <template v-if="item.meta.visible">
+      <template v-if="!('visible' in item) || item.visible">
         <el-menu-item v-if="!item.children" :key="item.key" :index="item.path">{{item.name}}</el-menu-item>
         <sub-menu v-else :data="item" :path="item.path" :key="item.key"></sub-menu>
       </template>
@@ -89,10 +90,13 @@ export default {
 
 **最后，router.js 代码结构：**
 
-`path`：必须，路径
-`name`：必须，将作为菜单名称
-`children`：可选，根据是否有 children 来判断是否有子菜单
-`meta.visible`：可选，根据 布尔值 判断是否显示此条菜单，默认不显示
+| 参数       | 说明                                           |
+| ---------- | ---------------------------------------------- |
+| `path`     | 必须，路径                                     |
+| `name`     | 必须，将作为菜单名称                           |
+| `children` | 可选，根据是否有                               |
+| `visible`  | 可选，根据布尔值判断是否显示此条菜单，默认显示 |
+
 
 ```js
 export default new Router({
@@ -100,58 +104,37 @@ export default new Router({
     {
       path: "/menu_0",
       name: "menu_0",
-      meta: {
-        visible: true
-      }
+      visible: false
     },
     {
       path: "/menu_1",
-      name: "menu_1",
-      meta: {
-        visible: true
-      }
+      name: "menu_1"
     },
     {
       path: "/menu_2",
-      name: "menu_2",
-      meta: {
-        visible: true
-      }
+      name: "menu_2"
     },
     {
       path: "/menu_3",
-      name: "menu_3",
-      meta: {
-        visible: true
-      }
+      name: "menu_3"
     },
     {
       path: "/menu_4",
       name: "menu_4",
-      meta: {
-        visible: true
-      },
+
       children: [
         {
           path: "menu_4_1",
-          name: "menu_4_1",
-          meta: {
-            visible: true
-          }
+          name: "menu_4_1"
         },
         {
           path: "menu_4_2",
           name: "menu_4_2",
-          meta: {
-            visible: true
-          },
+
           children: [
             {
               path: "menu_4_2_1",
-              name: "menu_4_2_1",
-              meta: {
-                visible: true
-              }
+              name: "menu_4_2_1"
             }
           ]
         }
